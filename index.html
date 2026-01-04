@@ -47,9 +47,47 @@
 
   <script>
     function zamanGit() {
-      const yil = Number(document.getElementById("yil").value);
-      const sonuc = document.getElementById("sonuc");
-      const simdi = new Date().getFullYear();
+      <script>
+function zamanGit() {
+  const yil = Number(document.getElementById("yil").value);
+  const sonuc = document.getElementById("sonuc");
+  const simdi = new Date().getFullYear();
+
+  if (!yil) {
+    sonuc.innerText = "❗ Lütfen bir yıl gir!";
+    return;
+  }
+
+  if (yil < 1900) {
+    sonuc.innerText = "🦖 Çok eski zamanlar! Dinozorlar vardı.";
+  } 
+  else if (yil < simdi) {
+    sonuc.innerText =
+      "📜 " + yil + " yılına gittin.\n" +
+      "Bu yıllarda savaşlar, mektuplar ve eski teknoloji vardı.";
+  } 
+  else if (yil === simdi) {
+    sonuc.innerText =
+      "⏰ Şu anki zamandasın.\n" +
+      "Telefonlar, internet ve yapay zeka var.";
+  } 
+  else if (yil <= 2030) {
+    sonuc.innerText =
+      "🚀 " + yil + " yılına gittin.\n" +
+      "Yapay zeka, elektrikli arabalar ve akıllı şehirler yaygın.";
+  } 
+  else if (yil <= 2050) {
+    sonuc.innerText =
+      "🤖 " + yil + " yılına gittin.\n" +
+      "Robotlar, uçan arabalar ve uzay seyahatleri olabilir.";
+  } 
+  else {
+    sonuc.innerText =
+      "🌌 " + yil + " yılına gittin.\n" +
+      "İnsanlar başka gezegenlerde yaşayabilir!";
+  }
+}
+</script>
 
       if (!yil) {
         sonuc.innerText = "❗ Lütfen bir yıl gir!";
