@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Zaman Makinesi</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: linear-gradient(120deg, #0f2027, #2c5364);
+      color: white;
+      text-align: center;
+      padding-top: 130px;
+    }
+    input {
+      padding: 10px;
+      font-size: 18px;
+      width: 200px;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 18px;
+      margin-left: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background: #4caf50;
+      color: white;
+    }
+    #sonuc {
+      margin-top: 30px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>⏳ ZAMAN MAKİNESİ</h1>
+  <p>Bir yıl yaz ve zamanda yolculuk yap!</p>
+
+  <input type="number" id="yil" placeholder="2050">
+  <button onclick="zamanGit()">Git 🚀</button>
+
+  <div id="sonuc"></div>
+
+  <script>
+    function zamanGit() {
+      const yil = Number(document.getElementById("yil").value);
+      const sonuc = document.getElementById("sonuc");
+      const simdi = new Date().getFullYear();
+
+      if (!yil) {
+        sonuc.innerText = "❗ Lütfen bir yıl gir!";
+        return;
+      }
+
+      if (yil < 1800) {
+        sonuc.innerText = "🦖 Milyonlarca yıl geriye gittin!";
+      } else if (yil < simdi) {
+        sonuc.innerText = "📜 Geçmişe gittin: " + yil;
+      } else if (yil === simdi) {
+        sonuc.innerText = "⏰ Şu an!";
+      } else {
+        sonuc.innerText = "🚀 Geleceğe gittin: " + yil;
+      }
+    }
+  </script>
+
+</body>
+</html>
