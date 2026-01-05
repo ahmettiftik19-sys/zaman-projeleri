@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Bina Sohbet</title>
+<style>
+body {
+  font-family: Arial;
+  background:#222;
+  color:white;
+  display:flex;
+  justify-content:center;
+  padding-top:30px;
+}
+#kut {
+  width:400px;
+  background:#333;
+  padding:15px;
+  border-radius:10px;
+}
+#mesajlar {
+  height:300px;
+  overflow-y:auto;
+  background:#111;
+  padding:10px;
+  margin-bottom:10px;
+}
+input, select, button {
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+}
+button {
+  background:#4caf50;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div id="kut">
+  <h2>🏢 Bina Sohbeti</h2>
+
+  <select id="isim">
+    <option>Ahmet</option>
+    <option>Kerem</option>
+    <option>Umut</option>
+    <option>Yağmur Nisa</option>
+    <option>Arda Efe</option>
+  </select>
+
+  <div id="mesajlar"></div>
+
+  <input id="mesaj" placeholder="Mesaj yaz...">
+  <button onclick="gonder()">Gönder</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCELizvEOUX_dG16HvCCkuRq4lXgRuy300",
+  authDomain: "kitap-kulubu-2b920.firebaseapp.com",
+  projectId: "kitap-kulubu-2b920",
+  storageBucket: "kitap-kulubu-2b920.appspot.com",
+  messagingSenderId: "678535320880",
+  appId: "1:678535320880:web:5d204cbdc94cf42817a4f5"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const mesajlarDiv = document.getElementById("mesajlar");
+
+const q = query(collection(db, "sohbet"), orderBy("zaman"));
+
+onSnapshot(q, (snapshot) => {
+  mesajlarDiv.innerHTML = "";
+  snapshot.forEach(doc => {
+    const d = doc.data();
+    mesajlarDiv.innerHTML += `<p><b>${d.isim}:</b> ${d.yazi}</p>`;
+  });
+  mesajlarDiv.scrollTop = mesajlarDiv.scrollHeight;
+});
+
+async function gonder() {
+  const isim = document.getElementById("isim").value;
+  const yazi = document.getElementById("mesaj").value;
+  if (!yazi) return;
+
+  await addDoc(collection(db, "sohbet"), {
+    isim,
+    yazi,
+    zaman: new Date()
+  });
+
+  document.getElementById("mesaj").value = "";
+}
+</script>
+
+</body>
+</html>
